@@ -13,5 +13,13 @@ feature 'Creating Products' do
 		click_button 'Create Product'
 
 		expect(page).to have_content('Product was successfully created.')
+	
+		product = Product.where(title: "FlyZone 3000").first
+
+		expect(page.current_url).to eql(product_url(product))
+
+		title = "FlyZone 3000 - Products - ActionDepot"
+		expect(page).to have_title(title)
 	end
+
 end
