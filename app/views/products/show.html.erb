@@ -29,3 +29,11 @@
 			} %> |
 <%= link_to 'Review Product', new_product_review_path(@product) %> |
 <%= link_to 'Back', products_path %>
+
+<ul id="tickets">
+	<% @product.reviews.each do |review| %>
+	  <li>
+	  	#<%= review.id %> =
+	  	<%= link_to review.title, [@product, review] %>
+	  </li>
+	<% end %>
