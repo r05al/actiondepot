@@ -1,11 +1,12 @@
 require 'rails_helper'
 
 feature 'Creating Products' do
-	scenario 'can create a product' do
+	before do
 		visit '/'
 
 		click_link 'New Product'
-
+	end
+	scenario 'can create a product' do
 		fill_in 'Title', with: 'FlyZone 3000'
 		fill_in 'Description', with: 'Fly higher'
 		fill_in 'Image url', with: 'drone.jpg'
@@ -22,4 +23,13 @@ feature 'Creating Products' do
 		expect(page).to have_title(title)
 	end
 
+	scenario "cannot create a product without a title, description, url, price" do
+		click_button 'Create Product'
+
+		expect(page).to have_content("Product has not been created.")
+		expect(page).to have_content("Title can't be blank")
+		expect(page).to have_content("Description can't be blank")		
+		expect(page).to have_content("Image url can't be blank")
+		expect(page).to have_content("Price is not a number")
+	end
 end
