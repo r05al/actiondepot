@@ -67,6 +67,9 @@ class ProductsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_product
       @product = Product.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      flash[:alert] = "The product you were looking for does not exist."
+      redirect_to products_path
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
