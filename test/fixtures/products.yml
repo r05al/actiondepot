@@ -11,3 +11,9 @@ two:
   description: MyText
   image_url: MyString
   price: 9.99
+
+vest:
+  title: Quilted vest
+  description: Black cotton
+  price: 245.99
+  image_url: vest.png
