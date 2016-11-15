@@ -9,6 +9,11 @@
   </head>
 
   <body class="<%= controller.controller_name %>">
+  	<% flash.each do |key, value| %>
+  		<div class="flash" id='<%= key %>'>
+  			<%= value %>
+  		</div>
+  	<% end %>
     <%= yield %>
   </body>
 </html>
