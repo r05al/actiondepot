@@ -19,6 +19,18 @@ class ReviewsController < ApplicationController
 	def show
 	end
 
+	def edit
+	end
+
+	def update
+		if @review.update(review_params)
+			redirect_to [@product, @review], notice: "Review has been updated."
+		else
+			flash[:alert] = "Review has not been updated."
+			render :edit
+		end
+	end
+
 	private
 		def set_product
 			@product = Product.find(params[:product_id])

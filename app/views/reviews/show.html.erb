@@ -2,3 +2,5 @@
 	<h2><%= @review.title %></h2>
 	<%= simple_format(@review.experience) %>
 </div>
+
+<%= link_to "Edit Review", edit_product_review_path(@product, @review) %>
