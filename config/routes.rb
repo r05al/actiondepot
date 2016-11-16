@@ -7,5 +7,7 @@ Rails.application.routes.draw do
   end
 
   resources :users
-  
+
+	get "/login", to: "sessions#new"
+	post "/login", to: "sessions#create"
 end
