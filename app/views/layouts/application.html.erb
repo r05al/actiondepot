@@ -15,18 +15,25 @@
   </head>
 
   <body class="<%= controller.controller_name %>">
-  	<nav>
-      <ul>
-        <li><%= link_to "Sign Up", new_user_path %></li>
-        <li><%= link_to "Sign In", login_path %></li>
-      </ul>
-  	</nav>
-  	
   	<% flash.each do |key, value| %>
   		<div class="flash" id='<%= key %>'>
   			<%= value %>
   		</div>
   	<% end %>
+    <nav>
+      <% if current_user %>
+        Signed in as <%= current_user.email %>
+        <% admins_only do %>
+          <%= link_to "Admin", admin_root_path %>
+        <% end %>
+      <% else %>
+        <ul>
+          <li><%= link_to "Sign Up", new_user_path %></li>
+          <li><%= link_to "Sign In", login_path %></li>
+        </ul>
+      <% end %>
+    </nav>
+    
     <%= yield %>
   </body>
 </html>
