@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   	@user = User.new(user_params)
 
   	if @user.save
-  		redirect_to products_path, alert: "You have successfully signed up."
+  		redirect_to products_path, notice: "You have successfully signed up."
   	else
   		flash[:alert] = "Please check errors and try again."
   		render :new
@@ -24,13 +24,13 @@ class UsersController < ApplicationController
 
   def update
   	if @user.update(user_params)
-  		redirect_to @user, alert: "Profile has been updated."
+  		redirect_to @user, notice: "Profile has been updated."
   	else
   		flash[:alert] = "Please check errors and try again."
   		render :edit
   	end
   end
-
+  
   private
   	def user_params
   		params.require(:user).permit(:name, :email, :password, :password_confirmation)
