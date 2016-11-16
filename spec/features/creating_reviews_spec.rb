@@ -4,6 +4,7 @@ feature "Creating Reviews" do
 	before do
 		product = FactoryGirl.create(:product, title: "HawkFlight")
 		user = FactoryGirl.create(:user)
+		@email = user.email
 
 		visit '/'
 		click_link product.title
@@ -26,7 +27,7 @@ feature "Creating Reviews" do
 
 		expect(page).to have_content("Review has been created.")
 		within "#review #author" do
-			expect(page).to have_content("Written by joe@example.com")
+			expect(page).to have_content("Written by #{@email}")
 		end
 	end
 
