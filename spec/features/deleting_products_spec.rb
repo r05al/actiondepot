@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 feature 'Deleting Products' do
+	before do
+		sign_in_as!(FactoryGirl.create(:admin_user))
+	end
+	
 	scenario 'Updating a product' do
 		FactoryGirl.create(:product, title: "FlyZone 3000")
 

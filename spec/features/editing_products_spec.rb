@@ -3,6 +3,7 @@ require 'rails_helper'
 feature 'Editing Products' do
 	before do
 		FactoryGirl.create(:product, title: "FlyZone 3000")
+		sign_in_as!(FactoryGirl.create(:admin_user))
 
 		visit '/'
 		click_link "FlyZone 3000"
