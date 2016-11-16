@@ -15,6 +15,10 @@
   </head>
 
   <body class="<%= controller.controller_name %>">
+  	<nav>
+  		<%= link_to "Sign Up", new_user_path %>
+  	</nav>
+  	
   	<% flash.each do |key, value| %>
   		<div class="flash" id='<%= key %>'>
   			<%= value %>
