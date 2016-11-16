@@ -15,8 +15,10 @@
         <dd><%= truncate(strip_tags(product.description), length: 80) %></dd>
       </dl>
     <td class="list_actions">
-      <%= link_to 'Edit', edit_product_path(product) %><br/>
-      <%= link_to 'Delete Product', product, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% admins_only do %>
+        <%= link_to 'Edit Product', edit_product_path(product) %><br/>
+        <%= link_to 'Delete Product', product, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% end %>
     </td>
   </tr>
 <% end %>
@@ -24,4 +26,6 @@
 
 <br />
 
-<%= link_to 'New Product', new_product_path %>
+<% admins_only do %>
+  <%= link_to 'New Product', new_product_path %>
+<% end %>

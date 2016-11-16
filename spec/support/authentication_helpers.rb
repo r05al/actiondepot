@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 module AuthenticationHelpers
 	def sign_in_as!(user)
 		visit '/login'

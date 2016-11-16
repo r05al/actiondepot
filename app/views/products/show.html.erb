@@ -22,11 +22,13 @@
   <%= @product.price %>
 </p>
 
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Delete Product', product_path(@product),
-			method: :delete, data: { 
-				confirm: "Are you sure you want to delete this project?"
-			} %> |
+<% admins_only do %>
+	<%= link_to 'Edit Product', edit_product_path(@product) %> |
+	<%= link_to 'Delete Product', product_path(@product),
+				method: :delete, data: { 
+					confirm: "Are you sure you want to delete this project?"
+				} %> |
+<% end %>
 <%= link_to 'Review Product', new_product_review_path(@product) %> |
 <%= link_to 'Back', products_path %>
 
