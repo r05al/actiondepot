@@ -1,4 +1,5 @@
 class ReviewsController < ApplicationController
+	before_action :require_signin!, except: [:show, :index]
 	before_action :set_product
 	before_action :set_review, only: [:show, :edit, :update, :destroy]
 
@@ -8,6 +9,7 @@ class ReviewsController < ApplicationController
 
 	def create
 		@review = @product.reviews.build(review_params)
+		@review.user = current_user
 		if @review.save
 			redirect_to [@product, @review], notice: "Review has been created."
 		else

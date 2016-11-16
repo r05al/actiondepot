@@ -1,5 +1,6 @@
 <div id="review">
 	<h2><%= @review.title %></h2>
+	<span id="author">Written by <%= @review.user.email %></span>
 	<%= simple_format(@review.experience) %>
 </div>
 

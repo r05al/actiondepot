@@ -2,10 +2,20 @@ require 'rails_helper'
 
 feature "Creating Reviews" do
 	before do
-		FactoryGirl.create(:product, title: "HawkFlight")
+		product = FactoryGirl.create(:product, title: "HawkFlight")
+		user = FactoryGirl.create(:user)
 
 		visit '/'
-		click_link "HawkFlight"
+		click_link product.title
+		click_link "Review Product"
+		message = "You need to sign in or sign up before continuing."
+		expect(page).to have_content(message)
+
+		fill_in "Name", with: user.name
+		fill_in "Password", with: user.password
+		click_button "Sign In"
+
+		click_link product.title
 		click_link "Review Product"
 	end
 
@@ -15,6 +25,9 @@ feature "Creating Reviews" do
 		click_button "Create Review"
 
 		expect(page).to have_content("Review has been created.")
+		within "#review #author" do
+			expect(page).to have_content("Written by joe@example.com")
+		end
 	end
 
 	scenario "Creating a review without valid attributes fails" do

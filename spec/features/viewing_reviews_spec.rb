@@ -4,17 +4,20 @@ feature "Viewing reviews" do
 	before do
 		hover_master = FactoryGirl.create(:product, title: "Hover Master")
 
+		user = FactoryGirl.create(:user)
 		FactoryGirl.create(:review,
 			product: hover_master,
 			title: "best in line",
-			experience: "Sometimes you hit the nail right on the head.")
+			experience: "Sometimes you hit the nail right on the head.",
+			user: user)
 
 		fireball = FactoryGirl.create(:product, title: "Fireball 8")
 
 		FactoryGirl.create(:review,
 			product: fireball,
 			title: "burst into flames",
-			experience: "literally, it burst into flames...")
+			experience: "literally, it burst into flames...",
+			user: user)
 
 		visit '/'
 	end

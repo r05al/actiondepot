@@ -2,9 +2,12 @@ require 'rails_helper'
 
 feature 'Deleting reviews' do
 	let!(:product) { FactoryGirl.create(:product) }
-	let!(:review) { FactoryGirl.create(:review, product: product) }
+	let!(:user) { FactoryGirl.create(:user) }
+	let!(:review) { FactoryGirl.create(:review, product: product, user: user) }
 
 	before do
+		sign_in_as!(user)
+		
 		visit '/'
 		click_link product.title
 		click_link review.title
