@@ -7,7 +7,7 @@ feature "Editing reviews" do
 
 	before do
 		define_permission!(user, "view", product)
-		define_permission!(user, "edit review", product)
+		define_permission!(user, "edit reviews", product)
 		sign_in_as!(user)
 		visit '/'
 		click_link product.title
