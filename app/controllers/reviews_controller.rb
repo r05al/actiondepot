@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-	before_action :require_signin!, except: [:show, :index]
+	before_action :require_signin!
 	before_action :set_product
 	before_action :set_review, only: [:show, :edit, :update, :destroy]
 
@@ -41,7 +41,11 @@ class ReviewsController < ApplicationController
 
 	private
 		def set_product
-			@product = Product.find(params[:product_id])
+			@product = Product.for(current_user).find(params[:product_id])
+		rescue ActiveRecord::RecordNotFound
+			flash[:alert] = "The product you were looking for " +
+											"could not be found."
+			redirect_to root_path
 		end
 
 		def review_params

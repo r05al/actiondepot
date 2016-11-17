@@ -5,6 +5,7 @@ feature "Creating Reviews" do
 		product = FactoryGirl.create(:product)
 		user = FactoryGirl.create(:user)
 		define_permission!(user, "view", product)
+		define_permission!(user, "create reviews", product)
 		@email = user.email
 		sign_in_as!(user)
 
