@@ -2,20 +2,13 @@ require 'rails_helper'
 
 feature "Creating Reviews" do
 	before do
-		product = FactoryGirl.create(:product, title: "HawkFlight")
+		product = FactoryGirl.create(:product)
 		user = FactoryGirl.create(:user)
+		define_permission!(user, "view", product)
 		@email = user.email
+		sign_in_as!(user)
 
 		visit '/'
-		click_link product.title
-		click_link "Review Product"
-		message = "You need to sign in or sign up before continuing."
-		expect(page).to have_content(message)
-
-		fill_in "Name", with: user.name
-		fill_in "Password", with: user.password
-		click_button "Sign In"
-
 		click_link product.title
 		click_link "Review Product"
 	end

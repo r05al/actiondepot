@@ -2,12 +2,18 @@ require 'rails_helper'
 
 describe ProductsController do 
 	let(:user) { FactoryGirl.create(:user) }
+	before do
+		sign_in(user)
+	end
+
+	it "displays and error for missing a project" do
+		get :show, id: "not-real"
+		expect(response).to redirect_to(products_path)
+		message = "The product you were looking for does not exist."
+		expect(flash[:alert]).to eql(message)
+	end
 
 	context "standard users" do
-		before do
-			sign_in(user)
-		end
-
 		{ new: :get,
 			create: :post,
 			edit: :get,
@@ -21,11 +27,12 @@ describe ProductsController do
 			end
 		end
 
-		it "displays and error for missing a project" do
-			get :show, id: "not-real"
+		it "cannot access the show actoin without permission" do
+			product = FactoryGirl.create(:product)
+			get :show, id: product.id
+
 			expect(response).to redirect_to(products_path)
-			message = "The product you were looking for does not exist."
-			expect(flash[:alert]).to eql(message)
+			expect(flash[:alert]).to eql("The product you were looking for does not exist.")
 		end
 	end
 

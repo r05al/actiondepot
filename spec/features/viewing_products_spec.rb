@@ -1,10 +1,18 @@
 require 'rails_helper'
 
 feature 'Viewing Products' do
+	let!(:user) { FactoryGirl.create(:user) }
+	let!(:product) { FactoryGirl.create(:product) }
+
+	before do
+		sign_in_as!(user)
+		define_permission!(user, :view, product)
+	end
+
 	scenario 'List all products' do
-		product = FactoryGirl.create(:product, title: "FlyZone 3000")
 		visit '/'
-		click_link "FlyZone 3000"
+		click_link product.title
+
 		expect(page.current_url).to eql(product_url(product))
 	end
 end

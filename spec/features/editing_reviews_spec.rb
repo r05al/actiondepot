@@ -6,6 +6,7 @@ feature "Editing reviews" do
 	let!(:review) { FactoryGirl.create(:review, product: product, user: user) }
 
 	before do
+		define_permission!(user, "view", product)
 		sign_in_as!(user)
 		visit '/'
 		click_link product.title

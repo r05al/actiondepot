@@ -56,7 +56,6 @@ class Admin::UsersController < Admin::BaseController
 
     def set_user
       @user = User.find(params[:id])
-      puts @user.inspect
     end
 
   	def user_params

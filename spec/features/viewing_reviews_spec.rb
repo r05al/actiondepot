@@ -19,6 +19,9 @@ feature "Viewing reviews" do
 			experience: "literally, it burst into flames...",
 			user: user)
 
+		define_permission!(user, "view", hover_master)
+		define_permission!(user, "view", fireball)
+		sign_in_as!(user)
 		visit '/'
 	end
 

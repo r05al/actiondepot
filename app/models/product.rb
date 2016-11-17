@@ -1,5 +1,11 @@
 class Product < ApplicationRecord
 	has_many :reviews, dependent: :destroy
+	has_many :permissions, as: :thing
+
+	scope :viewable_by, ->(user) do
+		joins(:permissions).where(permissions: { action: "view", 
+																						 user_id: user.id })
+	end
 
 	validates :title, :description, :image_url, presence: true
 	validates :price, numericality: {greater_than_or_equal_to: 0.01}
