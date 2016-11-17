@@ -7,6 +7,7 @@ feature 'Deleting reviews' do
 
 	before do
 		define_permission!(user, "view", product)
+		define_permission!(user, "delete reviews", product)
 		sign_in_as!(user)
 		
 		visit '/'

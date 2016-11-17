@@ -4,6 +4,7 @@ class ReviewsController < ApplicationController
 	before_action :set_review, only: [:show, :edit, :update, :destroy]
 	before_action :authorize_create!, only: [:new, :create]
 	before_action :authorize_update!, only: [:edit, :update]
+	before_action :authorize_delete!, only: :destroy
 
 	def new
 		@review = @product.reviews.build
@@ -68,6 +69,13 @@ class ReviewsController < ApplicationController
 		def authorize_update!
 			if !current_user.admin? && cannot?("edit reviews".to_sym, @product)
 				flash[:alert] = "You cannot edit reviews on this product."
+				redirect_to @product
+			end
+		end
+
+		def authorize_delete!
+			if !current_user.admin? && cannot?("delete reviews".to_sym, @product)
+				flash[:alert] = "You cannot delete reviews from this product."
 				redirect_to @product
 			end
 		end

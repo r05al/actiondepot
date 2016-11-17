@@ -58,5 +58,13 @@ RSpec.describe ReviewsController, type: :controller do
 										}
 			cannot_update_reviews!
 		end
+
+		it "cannot delete a review without permission" do
+			delete :destroy, { product_id: product.id, id: review.id }
+
+			expect(response).to redirect_to(product)
+			message = "You cannot delete reviews from this product."
+			expect(flash[:alert]).to eql(message)
+		end
 	end
 end
