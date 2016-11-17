@@ -1,12 +1,12 @@
 class ProductsController < ApplicationController
   before_action :authorize_admin!, except: [:index, :show]
-  before_action :require_signin!, only: [:show]
+  before_action :require_signin!, only: [:index, :show]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    @products = Product.for(current_user)
   end
 
   # GET /products/1
@@ -68,11 +68,7 @@ class ProductsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
-      @product = if current_user.admin?
-        Product.find(params[:id])
-      else
-        Product.viewable_by(current_user).find(params[:id])
-      end
+      @product = Product.for(current_user).find(params[:id])
     rescue ActiveRecord::RecordNotFound
       flash[:alert] = "The product you were looking for does not exist."
       redirect_to products_path

@@ -7,6 +7,10 @@ class Product < ApplicationRecord
 																						 user_id: user.id })
 	end
 
+	scope :for, ->(user) do
+		user.admin?  ? Product.all : Product.viewable_by(user)
+	end
+
 	validates :title, :description, :image_url, presence: true
 	validates :price, numericality: {greater_than_or_equal_to: 0.01}
 	validates :title, uniqueness: true

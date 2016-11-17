@@ -10,7 +10,9 @@ feature 'Viewing Products' do
 	end
 
 	scenario 'List all products' do
+		FactoryGirl.create(:product, title: "Hidden")
 		visit '/'
+		expect(page).to_not have_content("Hidden")
 		click_link product.title
 
 		expect(page.current_url).to eql(product_url(product))

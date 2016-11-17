@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   	@user = User.new(user_params)
 
   	if @user.save
+      session[:user_id] = @user.id
   		redirect_to products_path, notice: "You have successfully signed up."
   	else
   		flash[:alert] = "Please check errors and try again."
