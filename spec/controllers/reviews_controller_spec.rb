@@ -17,4 +17,26 @@ RSpec.describe ReviewsController, type: :controller do
 																	 "for could not be found.")
 		end
 	end
+
+	context "with permission to view the product" do
+		before do
+			sign_in(user)
+			define_permission!(user, "view", product)
+		end
+		def cannot_create_reviews!
+			response.should redirect_to(product)
+			message = "You cannot create reviews on this product."
+			flash[:alert].should eql(message)
+		end
+
+		it "cannot begin to create a ticket" do
+			get :new, product_id: product.id
+			cannot_create_reviews!
+		end
+
+		it "cannot create a review without permission" do
+			post :create, product_id: product.id
+			cannot_create_reviews!	
+		end
+	end
 end

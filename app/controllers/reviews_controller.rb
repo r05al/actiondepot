@@ -2,6 +2,7 @@ class ReviewsController < ApplicationController
 	before_action :require_signin!
 	before_action :set_product
 	before_action :set_review, only: [:show, :edit, :update, :destroy]
+	before_action :authorize_create!, only: [:new, :create]
 
 	def new
 		@review = @product.reviews.build
@@ -54,5 +55,12 @@ class ReviewsController < ApplicationController
 
 		def set_review
 			@review = @product.reviews.find(params[:id])
+		end
+
+		def authorize_create!
+			if !current_user.admin? && cannot?("create reviews".to_sym, @product)
+				flash[:alert] = "You cannot create reviews on this product."
+				redirect_to @product
+			end
 		end
 end
