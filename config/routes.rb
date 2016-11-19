@@ -2,7 +2,12 @@ Rails.application.routes.draw do
 
   namespace :admin do
   	root :to => "base#index"
-    resources :users
+    resources :users do
+      resources :permissions
+
+      put "permissions", to: "permissions#set",
+                         as: "set_permissions"
+    end
   end
 
 	root "products#index"
@@ -15,4 +20,5 @@ Rails.application.routes.draw do
 
 	get "/login", to: "sessions#new"
 	post "/login", to: "sessions#create"
+  delete "/signout", to: "sessions#destroy", as: "signout"
 end
