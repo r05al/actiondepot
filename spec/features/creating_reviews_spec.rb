@@ -41,4 +41,17 @@ feature "Creating Reviews" do
 		expect(page).to have_content("Review has not been created.")
 		expect(page).to have_content("Experience is too short")
 	end
+
+	scenario "Creating a review with an attachment" do
+		fill_in "Title", with: "Drone notes for update"
+		fill_in "Experience", with: "With the new software, it runs wonderfully!"
+		attach_file "File", "spec/fixtures/update.txt"
+		click_button "Create Review"
+
+		expect(page).to have_content("Review has been created.")
+
+		within("#review .asset") do
+			expect(page).to have_content("update.txt")
+		end
+	end
 end

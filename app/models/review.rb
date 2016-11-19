@@ -4,4 +4,6 @@ class Review < ApplicationRecord
 
   validates :title, presence: true
   validates :experience, presence: true, length: { minimum: 10 }
+
+  mount_uploader :asset, AssetUploader
 end

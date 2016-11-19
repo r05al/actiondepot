@@ -52,7 +52,7 @@ class ReviewsController < ApplicationController
 		end
 
 		def review_params
-			params.require(:review).permit(:title, :experience)
+			params.require(:review).permit(:title, :experience, :asset)
 		end
 
 		def set_review
