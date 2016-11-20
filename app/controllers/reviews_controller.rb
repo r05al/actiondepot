@@ -8,6 +8,7 @@ class ReviewsController < ApplicationController
 
 	def new
 		@review = @product.reviews.build
+		3.times { @review.assets.build }
 	end
 
 	def create
@@ -52,7 +53,8 @@ class ReviewsController < ApplicationController
 		end
 
 		def review_params
-			params.require(:review).permit(:title, :experience, :asset)
+			params.require(:review).permit(:title, :experience, 
+				assets_attributes: [:asset])
 		end
 
 		def set_review

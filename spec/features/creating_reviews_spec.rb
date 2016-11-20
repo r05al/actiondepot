@@ -45,13 +45,17 @@ feature "Creating Reviews" do
 	scenario "Creating a review with an attachment" do
 		fill_in "Title", with: "Drone notes for update"
 		fill_in "Experience", with: "With the new software, it runs wonderfully!"
-		attach_file "File", "spec/fixtures/update.txt"
+		attach_file "File 1", "spec/fixtures/update.txt"
+		attach_file "File 2", "spec/fixtures/update2.txt"
+		attach_file "File 3", "spec/fixtures/update3.txt"
 		click_button "Create Review"
 
 		expect(page).to have_content("Review has been created.")
 
-		within("#review .asset") do
+		within("#review .assets") do
 			expect(page).to have_content("update.txt")
+			expect(page).to have_content("update2.txt")
+			expect(page).to have_content("update3.txt")
 		end
 	end
 end
