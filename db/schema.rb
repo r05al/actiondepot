@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161119220911) do
+ActiveRecord::Schema.define(version: 20161120151002) do
 
   create_table "assets", force: :cascade do |t|
     t.string   "asset"
     t.integer  "review_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "content_type"
     t.index ["review_id"], name: "index_assets_on_review_id"
   end
 
