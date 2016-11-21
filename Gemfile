@@ -31,6 +31,8 @@ gem 'cancan'
 
 gem 'carrierwave'
 
+gem "sprockets-es6"
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -42,7 +44,10 @@ end
 
 group :test do
 	gem 'capybara'
-	gem 'factory_girl_rails'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+  gem 'faker'
+  gem 'selenium-webdriver'
 end
 
 group :development do

@@ -8,7 +8,7 @@ class ReviewsController < ApplicationController
 
 	def new
 		@review = @product.reviews.build
-		3.times { @review.assets.build }
+		@review.assets.build
 	end
 
 	def create
