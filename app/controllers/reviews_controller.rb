@@ -23,6 +23,7 @@ class ReviewsController < ApplicationController
 	end
 
 	def show
+		@comment = @review.comments.build
 	end
 
 	def edit
